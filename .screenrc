@@ -1,0 +1,23 @@
+startup_message off
+hardstatus off
+hardstatus alwayslastline
+hardstatus string '%{= G}[ %{G}%H %{g}][%= %{= w}%?%-Lw%?%{= R}%n%f %t%?%{= R}(%u)%?%{= w}%+Lw%?%= %{= g}] [ %{W}%c:%s %{B}%m-%d-%Y %{g}]'
+
+defbce on
+mousetrack on
+
+termcapinfo xterm* ti@:te@
+
+
+# Region switch
+bind j focus prev
+bind k focus next
+
+# Split binds
+bind n split
+bind m split -v
+
+bind p next
+bind q quit
+bind x remove 
+sorendition '='
