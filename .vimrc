@@ -21,6 +21,7 @@ Plugin 'tomasr/molokai'
 Plugin 'scrooloose/syntastic'
 Plugin 'nathanaelkane/vim-indent-guides' "Indent Guide <Leader>ig to enable, <Leader> = '\'
 Plugin 'haya14busa/incsearch.vim'
+Plugin 'oplatek/Conque-Shell'
 "Plugin 'davidhalter/jedi-vim'
 
 " PLUGIN END
@@ -66,7 +67,7 @@ let g:molokai_original = 1
 " Buffer maps
 map gn :bn<cr>
 map gp :bp<cr>
-map gd :bd<cr>  
+map gd :bp\|bd #<cr>  
 
 " Matching Parenthesis
 hi MatchParen cterm=underline ctermbg=none ctermfg=none
@@ -91,3 +92,8 @@ autocmd FileType python setlocal completeopt-=preview
 
 " experimental transparent shit
 hi Normal ctermbg=none
+hi StatusLineNC cterm=none ctermbg=none
+
+
+" CONQUE TERM
+cabbrev csh ConqueTerm bash 
