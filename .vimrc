@@ -1,4 +1,5 @@
-" Required
+set shell=/bin/bash
+"Required
 set nocompatible
 filetype off
 " Required
@@ -16,14 +17,12 @@ Plugin 'VundleVim/Vundle.vim'
 " VUNDLE START
 
 " PLUGIN START
-Plugin 'flazz/vim-colorschemes'
+"Plugin 'flazz/vim-colorschemes'
 Plugin 'tomasr/molokai'
-Plugin 'scrooloose/syntastic'
-Plugin 'nathanaelkane/vim-indent-guides' "Indent Guide <Leader>ig to enable, <Leader> = '\'
 Plugin 'haya14busa/incsearch.vim'
 Plugin 'oplatek/Conque-Shell'
-"Plugin 'davidhalter/jedi-vim'
-
+Plugin 'rust-lang/rust.vim'
+Plugin 'fatih/vim-go'
 " PLUGIN END
 
 
@@ -34,6 +33,8 @@ filetype plugin indent on    " required
 
 " Syntax
 syntax on
+" clipboard
+"set clipboard=unnamed
 " Welcome Message off
 set shortmess+=I
 " show wildmenu
@@ -44,7 +45,7 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-set foldmethod=indent
+set foldmethod=manual
 set nofoldenable
 " Line Number
 set number
@@ -55,10 +56,13 @@ nnoremap <C-L> :nohl<CR><C-L>
 
 set autoindent
 set nostartofline
+
 "Paste
 set pastetoggle=<F2>
+
 " Colors
 set t_Co=256
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 " Colorscheme
 colorscheme molokai
@@ -72,28 +76,25 @@ map gd :bp\|bd #<cr>
 " Matching Parenthesis
 hi MatchParen cterm=underline ctermbg=none ctermfg=none
 
-" incsearch
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
 
-"Jedi Config
-let g:jedi#popup_on_dot = 0
-let g:jedi#show_call_signatures = "0"
-autocmd FileType python setlocal completeopt-=preview
+" SUPERTAB
+"let g:SuperTabDefaultCompletionType = "<c-n>"
 
+" go plugins
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "goimports"
 
-" experimental transparent shit
+" experimental transparent
 hi Normal ctermbg=none
 hi StatusLineNC cterm=none ctermbg=none
 
-
 " CONQUE TERM
 cabbrev csh ConqueTerm bash 
+
+" BACKSPACE
+set backspace=start,eol,indent
+
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview 
+
+
