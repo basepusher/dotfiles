@@ -3,6 +3,18 @@ bind \cF accept-autosuggestion
 set fish_greeting ""
 set fish_color_valid_path --bold
 
+function sudo!!
+    eval sudo $history[1]
+end
+
+function vi
+    command vim $argv
+end
+
+function lss 
+    command ls -G $argv
+end
+
 function ls 
     command ls -l -G $argv
 end
@@ -71,3 +83,11 @@ end
 function fish_right_prompt
 
 end
+
+
+# add to path
+
+#set -U fish_user_paths $fish_user_paths /usr/local/Cellar/llvm/6.0.0/bin
+set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
+set -U fish_user_paths $fish_user_paths ~/Documents/go/bin
+set -x PYTHONSTARTUP ~/.pythonrc
