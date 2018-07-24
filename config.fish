@@ -116,10 +116,10 @@ end
 
 #set -U fish_user_paths $fish_user_paths /usr/local/Cellar/llvm/6.0.0/bin
 set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
-set -U fish_user_paths $fish_user_paths ~/Core/go/bin
 
 set -x PYTHONSTARTUP ~/.pythonrc
 # uncomment if needed
+#set -U fish_user_paths $fish_user_paths ~/Core/go/bin
 #set -x GOPATH ~/Core/go
 #set -x JAVA_HOME (/usr/libexec/java_home)
 #set -x VAGRANT_DEFAULT_PROVIDER vmware_fusion
