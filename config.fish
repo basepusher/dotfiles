@@ -3,25 +3,52 @@ bind \cF accept-autosuggestion
 set fish_greeting ""
 set fish_color_valid_path --bold
 
-function sudo!!
-    eval sudo $history[1]
+### BEGIN ALIAS ###
+if status --is-interactive
+    set -g fish_user_abbreviations
+    abbr --add vi "vim"
 end
 
-function vi
-    command vim $argv
+function lss
+    command ls -hG $argv
 end
 
-function lss 
-    command ls -G $argv
+function ls
+    command ls -lhG $argv
 end
 
-function ls 
-    command ls -l -G $argv
+alias l="ls"
+alias ll="ls"
+alias rm="safe-rm"
+
+### END ALIAS ###
+
+### BEGIN HISTORY CMDS ###
+function bind_bang
+  switch (commandline -t)
+  case "!"
+    commandline -t $history[1]; commandline -f repaint
+  case "*"
+    commandline -i !
+  end
 end
 
-function ll 
-    command ls -l -G $argv
+function bind_dollar
+  switch (commandline -t)
+  case "!"
+    commandline -t ""
+    commandline -f history-token-search-backward
+  case "*"
+    commandline -i '$'
+  end
 end
+
+function fish_user_key_bindings
+  bind ! bind_bang
+  bind '$' bind_dollar
+end
+
+### END HISTORY CMDS ###
 
 ### FISH PROMPT ###
 function _git_branch_name
@@ -65,9 +92,9 @@ function fish_prompt
         set -l git_branch (_git_branch_name)
 
         if [ (_git_is_dirty) ]
-            set git_info $yellow_bold '[' $git_branch "±" ']' (set_color normal)
+            set git_info (set_color --bold yellow) '[' $git_branch "±" ']' (set_color normal)
         else
-            set git_info $magenta_bold '[' $git_branch ']' (set_color normal)
+            set git_info (set_color --bold magenta) '[' $git_branch ']' (set_color normal)
         end
 
         echo -n -s (set_color --bold normal) '>' $git_info (set_color normal)
@@ -89,5 +116,9 @@ end
 
 #set -U fish_user_paths $fish_user_paths /usr/local/Cellar/llvm/6.0.0/bin
 set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
-set -U fish_user_paths $fish_user_paths ~/Documents/go/bin
+set -U fish_user_paths $fish_user_paths ~/Core/go/bin
+
 set -x PYTHONSTARTUP ~/.pythonrc
+set -x GOPATH ~/Core/go
+set -x JAVA_HOME (/usr/libexec/java_home)
+set -x VAGRANT_DEFAULT_PROVIDER vmware_fusion
