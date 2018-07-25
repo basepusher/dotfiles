@@ -92,7 +92,7 @@ function fish_prompt
         set -l git_branch (_git_branch_name)
 
         if [ (_git_is_dirty) ]
-            set git_info (set_color --bold yellow) '[' $git_branch "±" ']' (set_color normal)
+            set git_info (set_color --bold yellow) '[' $git_branch ']' (set_color normal)
         else
             set git_info (set_color --bold magenta) '[' $git_branch ']' (set_color normal)
         end
