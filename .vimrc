@@ -4,32 +4,33 @@ set nocompatible
 filetype off
 " Required
 
-" VUNDLE START
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" VUNDLE START
-
-" PLUGIN START
-"Plugin 'flazz/vim-colorschemes'
-Plugin 'tomasr/molokai'
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'oplatek/Conque-Shell'
-Plugin 'rust-lang/rust.vim'
-Plugin 'fatih/vim-go'
-" PLUGIN END
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
 
 
-" VUNDLE END
-call vundle#end()            " required
-filetype plugin indent on    " required
-" VUNDLE END
+"Plug 'flazz/vim-colorschemes'
+"Plug 'scrooloose/syntastic'
+"Plug 'chrisbra/csv.vim'
+"Plug 'nathanaelkane/vim-indent-guides' "Indent Guide <Leader>ig to enable, <Leader> = '\'
+"Plug 'davidhalter/jedi-vim'
+"Plug 'rust-lang/rust.vim'
+Plug 'tomasr/molokai'
+Plug 'haya14busa/incsearch.vim'
+"Plug 'oplatek/Conque-Shell'
+Plug 'fatih/vim-go'
+Plug 'dag/vim-fish'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
+Plug 'terryma/vim-multiple-cursors'
+
+
+
+" Initialize plugin system
+call plug#end()
 
 " Syntax
 syntax on
@@ -51,18 +52,23 @@ set nofoldenable
 set number
 "Disable Swap
 set noswapfile
+" Undo file
+set undodir=~/.vim/undo-dir
+set undofile
 " Reset highlight
 nnoremap <C-L> :nohl<CR><C-L>
 
 set autoindent
 set nostartofline
-
 "Paste
 set pastetoggle=<F2>
-
 " Colors
 set t_Co=256
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+"set tabstop=8
+set shiftwidth=4
+set expandtab
+set smarttab
 
 " Colorscheme
 colorscheme molokai
@@ -71,10 +77,17 @@ let g:molokai_original = 1
 " Buffer maps
 map gn :bn<cr>
 map gp :bp<cr>
-map gd :bp\|bd #<cr>  
+map gd :bp\|bd #<cr>
 
 " Matching Parenthesis
 hi MatchParen cterm=underline ctermbg=none ctermfg=none
+
+
+"Jedi Config
+"let g:jedi#popup_on_dot = 0
+"let g:jedi#use_splits_not_buffers="bottom"
+"let g:jedi#show_call_signatures = "0"
+"autocmd FileType python setlocal completeopt-=preview
 
 
 " SUPERTAB
@@ -84,17 +97,25 @@ hi MatchParen cterm=underline ctermbg=none ctermfg=none
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
 
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+
+set autowrite
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+
+
 " experimental transparent
 hi Normal ctermbg=none
 hi StatusLineNC cterm=none ctermbg=none
 
 " CONQUE TERM
-cabbrev csh ConqueTerm bash 
+"cabbrev csh ConqueTerm bash
 
 " BACKSPACE
 set backspace=start,eol,indent
 
 autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview 
-
-
+autocmd BufWinEnter *.* silent loadview
