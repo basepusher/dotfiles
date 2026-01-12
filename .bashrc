@@ -51,10 +51,10 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 # some more ls aliases
-alias ls='exa -l'
-alias ll='exa -a'
-alias la='exa -a'
-alias l='exa -l'
+alias ls='eza -l'
+alias ll='eza -a'
+alias la='eza -a'
+alias l='eza -l'
 
 ### screen killer
 killd () {
